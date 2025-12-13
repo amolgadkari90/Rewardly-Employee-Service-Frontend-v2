@@ -1,0 +1,153 @@
+.container {
+  padding: 30px;
+  max-width: 1400px;
+  margin: 0 auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #2c3e50;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.header-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+th {
+  background: linear-gradient(135deg, #cf7770 0%, #b86660 100%);
+  color: white;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+}
+
+tbody tr {
+  transition: background-color 0.2s ease;
+  
+  &:hover {
+    background-color: #f8f9fa;
+  }
+  
+  &:last-child td {
+    border-bottom: none;
+  }
+}
+
+td {
+  color: #495057;
+  font-size: 14px;
+}
+
+.loading {
+  text-align: center;
+  color: #0066cc;
+  font-size: 16px;
+  padding: 40px;
+  font-weight: 500;
+}
+
+.error {
+  text-align: center;
+  color: #dc3545;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 6px;
+  padding: 12px 20px;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.btn {
+  margin-right: 8px;
+  padding: 8px 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+  
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.add {
+  background: linear-gradient(135deg, #28a745 0%, #20873a 100%);
+  color: white;
+  padding: 10px 24px;
+  font-size: 14px;
+  
+  &:hover {
+    background: linear-gradient(135deg, #218838 0%, #1a6d2f 100%);
+  }
+}
+
+.view {
+  background: linear-gradient(135deg, #0aace3 0%, #0891c4 100%);
+  color: white;
+  
+  &:hover {
+    background: linear-gradient(135deg, #0891c4 0%, #0677a0 100%);
+  }
+}
+
+.edit {
+  background: linear-gradient(135deg, #ffa500 0%, #e69500 100%);
+  color: white;
+  
+  &:hover {
+    background: linear-gradient(135deg, #e69500 0%, #cc8400 100%);
+  }
+}
+
+.delete {
+  background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+  color: white;
+  
+  &:hover {
+    background: linear-gradient(135deg, #c82333 0%, #b21f2d 100%);
+  }
+}
+
+// No records message
+div:not(.loading):not(.error):not(.header-row):not(.container) {
+  text-align: center;
+  color: #6c757d;
+  padding: 40px;
+  font-size: 16px;
+  font-style: italic;
+}

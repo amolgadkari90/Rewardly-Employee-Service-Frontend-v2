@@ -1,0 +1,55 @@
+<div class="container">
+
+  <h2>Rewardly Employees</h2>
+<div class="header-row"> 
+  <button  routerLink="/employees/new" class="btn add"> + Add Employee</button>  
+</div>
+
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="loading">
+    Loading employees...
+  </div>
+
+  <!-- Error -->
+  <div *ngIf="errorMessage" class="error">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Table -->
+  <table *ngIf="!loading && employees.length > 0">
+    <thead>
+      <tr>
+        <th>Emp ID</th>
+        <th>Name</th>
+        <th>Designation</th>
+        <th>ExperienceYears</th>
+        <th>Salary</th>
+        <th>PerformanceRating</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let emp of employees">
+        <td>{{ emp.empId }}</td>
+        <td>{{ emp.empName }}</td>
+        <td>{{ emp.empDesignation }}</td>
+        <td>{{emp.empExperienceYears}}</td>
+        <td>{{emp.empSalary}}</td>
+        <td>{{emp.empPerformanceRating}}</td>
+        <td>
+          <button class="btn view">View</button>
+          <button class="btn edit">Edit</button>
+          <button class="btn delete" (click)="deleteEmployee(emp.empId!)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- No Records -->
+  <div *ngIf="!loading && employees.length === 0">
+    No employees found.
+  </div>
+
+</div>

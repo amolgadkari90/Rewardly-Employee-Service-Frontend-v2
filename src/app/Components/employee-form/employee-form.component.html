@@ -1,0 +1,118 @@
+<div class="form-container">
+    <h2>Create Employee </h2>
+
+    <!-- General Messages - this is for consol logs in HTML-->
+    <div *ngIf="apiGeneralError" class="alert alert-error">{{apiGeneralError}}</div>
+    <!--Dynamic successMessage-->
+    <div *ngIf="apiSuccessMessage" class="alert alert-success">{{apiSuccessMessage}}</div>
+
+    <form [formGroup]="employeeForm" (ngSubmit)="submitForm()" class="modern-form">
+
+        <!-- Name -->
+        <div class="form-group">
+            <div class="input-wrapper">
+                <input id="empName" type="text" formControlName="empName" placeholder=" " class="floating-input" />
+
+                <label for="empName" class="floating-label">
+                    Name
+                </label>
+            </div>
+            <div class="field-error" *ngIf="form['empName'].touched && form['empName'].invalid">
+                <div *ngIf="form['empName'].errors?.['required']">Name is required!</div>
+                <div *ngIf="form['empName'].errors?.['minLength']">Name must be atleast 2 chars!</div>
+                <div *ngIf="form['empName'].errors?.['maxLength']">Name length must be less than 100 chars!</div>
+                <div *ngIf="form['empName'].errors?.['apiError']">{{form['empName'].errors?.['apiError']}}</div>
+            </div>
+        </div>
+
+        <!-- Designation -->
+        <div class="form-group">
+            <div class="input-wrapper">
+                <input id="empDesignation" 
+                type="text" 
+                formControlName="empDesignation" 
+                placeholder=" " 
+                class="floating-input" />
+
+                <label for="empDesignation" class="floating-label">
+                    Designation
+                </label>
+            </div>
+            <div class="field-error" 
+            *ngIf="form['empDesignation'].touched && form['empDesignation'].invalid">
+                <div *ngIf="form['empDesignation'].errors?.['required']">Designation is required!</div>
+                <div *ngIf="form['empDesignation'].errors?.['minLength']">Designation must be atleast 2 chars!</div>
+                <div *ngIf="form['empDesignation'].errors?.['maxLength']">Designation length must be less than 100 chars!</div>
+                <div *ngIf="form['empDesignation'].errors?.['pattern']">Only alphabates and spaces allowed!</div>
+                <div *ngIf="form['empDesignation'].errors?.['apiError']">{{form['empDesignation'].errors?.['apiError']}}</div>
+            </div>
+        </div>
+
+        <!-- Salary -->
+        <div class="form-group">
+            <div class="input-wrapper">
+                <input id="empSalary" 
+                type="text" formControlName="empSalary" 
+                placeholder=" " 
+                class="floating-input" />
+
+                <label for="empSalary" class="floating-label">
+                    Salary
+                </label>
+            </div>
+            <div class="field-error" *ngIf="form['empSalary'].touched && form['empSalary'].invalid">
+                <div *ngIf="form['empSalary'].errors?.['required']">Salary is required!</div>
+                <div *ngIf="form['empSalary'].errors?.['min']">Salary must be positive!</div>
+                <div *ngIf="form['empSalary'].errors?.['apiError']">{{form['empSalary'].errors?.['apiError']}}</div>
+            </div>
+        </div>
+
+        <!-- Experience Years -->
+        <div class="form-group">
+            <div class="input-wrapper">
+                <input id="empExperienceYears" 
+                type="text" formControlName="empExperienceYears" 
+                placeholder=" " 
+                class="floating-input" />
+
+                <label for="empExperienceYears" class="floating-label">
+                    Experience(Years)
+                </label>
+            </div>
+            <div class="field-error" *ngIf="form['empExperienceYears'].touched && form['empExperienceYears'].invalid">
+                <div *ngIf="form['empExperienceYears'].errors?.['required']"> Experience is required!</div>
+                <div *ngIf="form['empExperienceYears'].errors?.['min']"> Experience must be atleast 0!</div>
+                <div *ngIf="form['empExperienceYears'].errors?.['max']">Experience must be maximum 50 years!</div>
+                <div *ngIf="form['empExperienceYears'].errors?.['apiError']">{{form['empExperienceYears'].errors?.['apiError']}}</div>
+            </div>
+        </div>
+
+        <!-- Performance Rating -->
+        <div class="form-group">
+            <div class="input-wrapper">
+                <input id="empPerformanceRating" 
+                type="text" formControlName="empPerformanceRating" 
+                placeholder=" " 
+                class="floating-input" />
+
+                <label for="empPerformanceRating" class="floating-label">
+                    Performance Rating(1-5)
+                </label>
+            </div>
+            <div class="field-error" *ngIf="form['empPerformanceRating'].touched && form['empPerformanceRating'].invalid">
+                <div *ngIf="form['empPerformanceRating'].errors?.['required']">Performance rating is required!</div>
+                <div *ngIf="form['empPerformanceRating'].errors?.['min']">Performance rating minimum 1!</div>
+                <div *ngIf="form['empPerformanceRating'].errors?.['max']">Performance rating maximum 5!</div>
+                <div *ngIf="form['empPerformanceRating'].errors?.['apiError']">{{form['empPerformanceRating'].errors?.['apiError']}}</div>
+            </div>
+        </div>
+
+        <!-- Buttons -->
+         <div class="button-row">
+            <button type="button" routerLink="/employees" class="btn btn-outline">Cancel</button>
+            <button type="submit" [disabled]="submitting || employeeForm.invalid" 
+                    class="btn btn-primary">{{submitting?"saving...":"Save Employee"}}
+            </button>
+         </div>
+</form>
+</div>
