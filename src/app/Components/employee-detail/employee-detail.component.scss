@@ -1,0 +1,204 @@
+/* =========================================================
+   Employee Detail – Unified, Icon-Consistent UI
+   ========================================================= */
+
+.detail-container {
+  display: flex;
+  justify-content: center;
+  padding: 48px 24px;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #e4f9ff 0%, #e6fbf9 100%);
+  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ---------- Status ---------- */
+.status-text {
+  text-align: center;
+  font-size: 16px;
+  color: #3b5b7a;
+  padding: 32px;
+
+  &.error {
+    background-color: #fdecea;
+    color: #b42318;
+    border-radius: 10px;
+    font-weight: 600;
+  }
+}
+
+/* ---------- Card ---------- */
+.detail-card {  
+  width: 100%;
+  max-width: 650px;
+  height: 550px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(16, 24, 40, 0.08);
+  overflow: hidden;
+}
+
+/* ---------- Header ---------- */
+.detail-header {
+  padding: 26px 32px;
+  background: linear-gradient(90deg, #b6f2ff 0%, #b9fbf6 100%);
+  border-bottom: 1px solid #dce7f1;
+
+  h2 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 700;
+    color: #0b7285;
+    text-align: center;
+  }
+}
+
+/* ---------- Body ---------- */
+.detail-body {
+  padding: 26px 32px;
+}
+
+/* ---------- Rows ---------- */
+.detail-row {
+  display: grid;
+  grid-template-columns: 32px 160px 1fr;
+  align-items: center;
+  column-gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px dashed #e6edf3;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+/* ---------- Icons ---------- */
+.field-icon {
+  width: 22px;
+  height: 22px;
+  stroke: #0b7285;
+  stroke-width: 2;
+  fill: none;
+  opacity: 0.9;
+}
+
+/* ---------- Labels ---------- */
+.label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ---------- Values ---------- */
+.value {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1f2d3d;
+}
+
+/* ID */
+.mono {
+  font-family: 'JetBrains Mono', 'Consolas', monospace;
+  font-size: 12.5px;
+  color: #6b7c93;
+}
+
+/* Name */
+.name {
+  font-weight: 700;
+  color: #0b7285;
+}
+
+/* Designation */
+.designation {
+  background-color: #e6f7f5;
+  color: #1f4d4f;
+  padding: 4px 12px;
+  border-radius: 14px;
+  font-weight: 600;
+  font-size: 13px;
+  display: inline-block;
+}
+
+/* Experience */
+.experience {
+  color: #64748b;
+}
+
+/* Salary */
+.salary {
+  color: #2f9e44;
+  font-weight: 700;
+}
+
+/* Rating */
+.rating {
+  color: #1c7ed6;
+  font-weight: 700;
+}
+
+/* ---------- Footer ---------- */
+.detail-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 22px 32px;
+  border-top: 1px solid #dce7f1;
+  background-color: #fafcfd;
+}
+
+/* ---------- Buttons ---------- */
+.btn-secondary,
+.btn-primary {
+  padding: 10px 22px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-secondary {
+  background-color: #e9eff2;
+  color: #334e68;
+
+  &:hover {
+    background-color: #dde5ec;
+  }
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #2fb8ac 0%, #0b7285 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(11, 114, 133, 0.25);
+
+  &:hover {
+    box-shadow: 0 6px 16px rgba(11, 114, 133, 0.35);
+  }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 600px) {
+  .detail-body {
+    padding: 20px;
+  }
+
+  .detail-row {
+    grid-template-columns: 28px 1fr;
+    row-gap: 6px;
+
+    .label,
+    .value {
+      grid-column: 2;
+    }
+  }
+
+  .detail-footer {
+    flex-direction: column;
+    gap: 12px;
+
+    button {
+      width: 100%;
+    }
+  }
+}

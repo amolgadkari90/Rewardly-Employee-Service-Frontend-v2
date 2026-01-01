@@ -1,0 +1,90 @@
+<div class="detail-container">
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="status-text">
+    Loading employee details...
+  </div>
+
+  <!-- Error -->
+  <div *ngIf="errorMessage && !loading" class="status-text error">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Detail Card -->
+  <div *ngIf="employee && !loading" class="detail-card">
+
+    <!-- Header -->
+    <div class="detail-header">
+      <h2>Employee Details</h2>
+    </div>
+
+    <!-- Body -->
+    <div class="detail-body">
+      <div class="detail-row">
+        <svg class="field-icon" viewBox="0 0 24 24">
+          <path d="M4 7h16M4 12h10M4 17h16"/>
+        </svg>
+        <span class="label">ID</span>
+        <span class="value mono">{{ employee.empId }}</span>
+      </div>
+
+      <!-- Name -->
+      <div class="detail-row">
+        <svg class="field-icon" viewBox="0 0 24 24">
+          <circle cx="12" cy="7" r="4"/>
+          <path d="M4 21v-2a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v2"/>
+        </svg>
+        <span class="label">Name</span>
+        <span class="value name">{{ employee.empName }}</span>
+      </div>
+
+      <!-- Designation -->
+      <div class="detail-row">
+        <svg class="field-icon" viewBox="0 0 24 24">
+          <rect x="3" y="7" width="18" height="12" rx="2"/>
+          <path d="M8 7V5a4 4 0 0 1 8 0v2"/>
+        </svg>
+        <span class="label">Designation</span>
+        <span class="value designation">{{ employee.empDesignation }}</span>
+      </div>
+
+      <!-- Experience -->
+      <div class="detail-row">
+        <svg class="field-icon" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9"/>
+          <path d="M12 7v5l3 2"/>
+        </svg>
+        <span class="label">Experience</span>
+        <span class="value experience">{{ employee.empExperienceYears }} yrs</span>
+      </div>
+
+      <!-- Salary -->
+      <div class="detail-row">
+        <svg class="field-icon" viewBox="0 0 24 24">
+          <path d="M12 1v22M7 6h8a3 3 0 0 1 0 6H9a3 3 0 0 0 0 6h8"/>
+        </svg>
+        <span class="label">Salary</span>
+        <span class="value salary">
+          {{ employee.empSalary | currency:'INR':'symbol':'1.0-0' }}
+        </span>
+      </div>
+
+      <!-- Rating -->
+      <div class="detail-row">
+        <svg class="field-icon" viewBox="0 0 24 24">
+          <polygon points="12 2 15 9 22 9 17 14 19 21 12 17 5 21 7 14 2 9 9 9"/>
+        </svg>
+        <span class="label">Rating</span>
+        <span class="value rating">{{ employee.empPerformanceRating }}/5</span>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="detail-footer">
+      <button class="btn-secondary" (click)="goBackToList()">Back to List</button>
+      <button class="btn-primary" (click)="goToEdit()">Edit</button>
+    </div>
+
+  </div>
+</div>
