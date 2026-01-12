@@ -1,17 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EmployeeService } from '../../services/employee.service';
-import { Employee } from '../../models/employee.interface';
+import { Employee } from 'src/app/models/employee.interface';
 import { ErrorResponse } from 'src/app/models/error-response.interface';
+import { EmployeeService } from 'src/app/services/employee.service';
 
 @Component({
   selector: 'app-employee-detail',
   templateUrl: './employee-detail.component.html',
-  styleUrls: ['./employee-detail.component.scss']
+  styleUrls: ['./employee-detail.component.scss'],
 })
 export class EmployeeDetailComponent implements OnInit {
-
-  employee: Employee | null = null; 
+  employee: Employee | null = null;
   loading = false;
   errorMessage = '';
 
@@ -19,60 +18,42 @@ export class EmployeeDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private employeeService: EmployeeService
-  ) {
-    console.log('[EmployeeDetailComponent] Constructor called');
-  }
+  ) {}
 
   ngOnInit(): void {
-    console.log('[EmployeeDetailComponent] ngOnInit started');
-
     const employeeId = this.route.snapshot.paramMap.get('id');
-    console.log('[EmployeeDetailComponent] Extracted employeeId from route:', employeeId);
-
     if (!employeeId) {
-      this.errorMessage = 'Employee id missing in the URL!';
-      console.warn('[EmployeeDetailComponent] No employeeId found in URL params');
+      this.errorMessage = 'Employee ID is missing.';
       return;
-    } 
+    }
 
-    this.fetchEmployee(employeeId);
+    this.fetchEmployeeDetails(employeeId);
   }
 
-  private fetchEmployee(employeeId: string) {
-    console.log(`[EmployeeDetailComponent] Fetching employee with ID: ${employeeId}`);
+  fetchEmployeeDetails(employeeId: string): void {
     this.loading = true;
-    this.errorMessage = ''; // Clear previous errors
+    this.errorMessage = '';
 
-    this.employeeService.getEmployeeById(employeeId).subscribe({ 
+    this.employeeService.getEmployeeById(employeeId).subscribe({
       next: (response) => {
-        console.log('[EmployeeDetailComponent] Employee data received:', response.data);
         this.employee = response.data;
         this.loading = false;
       },
-
       error: (error: ErrorResponse) => {
-        console.error('[EmployeeDetailComponent] Error fetching employee:', error);
-        this.errorMessage = error.errorMessage || 'Failed to load employee details!';
+        this.errorMessage =
+          error.errorMessage || 'Failed to load employee details.';
         this.loading = false;
       },
-
-      complete: () => {
-        console.log('[EmployeeDetailComponent] getEmployeeById observable completed');
-      }
-    });    
+    });
   }
 
-  goBackToList() {
-    console.log('[EmployeeDetailComponent] Navigating back to employee list');
+  goBackToList(): void {
     this.router.navigate(['/employees']);
   }
 
-  goToEdit() {
+  goToEdit(): void {
     if (this.employee?.empId) {
-      console.log(`[EmployeeDetailComponent] Navigating to edit employee: ${this.employee.empId}`);
-      this.router.navigate(['/employees', this.employee.empId, 'edit']);      
-    } else {
-      console.warn('[EmployeeDetailComponent] Cannot navigate to edit: employee or empId is null');
+      this.router.navigate(['/employees', this.employee.empId, 'edit']);
     }
   }
 }

@@ -1,204 +1,377 @@
-/* =========================================================
-   Employee Detail – Unified, Icon-Consistent UI
-   ========================================================= */
-
+/* ========================= */
+/* Employee Detail - Modern Style with Skeleton */
+/* ========================= */
 .detail-container {
+  max-width: 900px;
+  margin: 60px auto;
+  padding: 2rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: #f5f5f5;
+  min-height: 80vh;
+}
+
+/* Header */
+.header {
   display: flex;
-  justify-content: center;
-  padding: 48px 24px;
-  min-height: 100vh;
-  background: linear-gradient(180deg, #e4f9ff 0%, #e6fbf9 100%);
-  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
 
-/* ---------- Status ---------- */
-.status-text {
-  text-align: center;
-  font-size: 16px;
-  color: #3b5b7a;
-  padding: 32px;
-
-  &.error {
-    background-color: #fdecea;
-    color: #b42318;
-    border-radius: 10px;
+  .back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.5rem;
+    background: transparent;
+    border: 2px solid #fca311;
+    border-radius: 12px;
+    color: #fca311;
+    font-size: 1rem;
     font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    .back-icon {
+      width: 20px;
+      height: 20px;
+      stroke-width: 2.5;
+    }
+
+    &:hover {
+      background: #fca311;
+      color: #14213d;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(252, 163, 17, 0.25);
+    }
   }
-}
 
-/* ---------- Card ---------- */
-.detail-card {  
-  width: 100%;
-  max-width: 650px;
-  height: 550px;
-  background-color: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 12px 32px rgba(16, 24, 40, 0.08);
-  overflow: hidden;
-}
-
-/* ---------- Header ---------- */
-.detail-header {
-  padding: 26px 32px;
-  background: linear-gradient(90deg, #b6f2ff 0%, #b9fbf6 100%);
-  border-bottom: 1px solid #dce7f1;
-
-  h2 {
+  h1 {
     margin: 0;
-    font-size: 22px;
+    font-size: 2.2rem;
     font-weight: 700;
-    color: #0b7285;
+    color: #14213d;
+    flex: 1;
     text-align: center;
   }
 }
 
-/* ---------- Body ---------- */
-.detail-body {
-  padding: 26px 32px;
-}
-
-/* ---------- Rows ---------- */
-.detail-row {
-  display: grid;
-  grid-template-columns: 32px 160px 1fr;
-  align-items: center;
-  column-gap: 16px;
-  padding: 14px 0;
-  border-bottom: 1px dashed #e6edf3;
-
-  &:last-child {
-    border-bottom: none;
-  }
-}
-
-/* ---------- Icons ---------- */
-.field-icon {
-  width: 22px;
-  height: 22px;
-  stroke: #0b7285;
-  stroke-width: 2;
-  fill: none;
-  opacity: 0.9;
-}
-
-/* ---------- Labels ---------- */
-.label {
-  font-size: 13px;
-  font-weight: 600;
-  color: #64748b;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-/* ---------- Values ---------- */
-.value {
-  font-size: 14px;
-  font-weight: 500;
-  color: #1f2d3d;
-}
-
-/* ID */
-.mono {
-  font-family: 'JetBrains Mono', 'Consolas', monospace;
-  font-size: 12.5px;
-  color: #6b7c93;
-}
-
-/* Name */
-.name {
-  font-weight: 700;
-  color: #0b7285;
-}
-
-/* Designation */
-.designation {
-  background-color: #e6f7f5;
-  color: #1f4d4f;
-  padding: 4px 12px;
-  border-radius: 14px;
-  font-weight: 600;
-  font-size: 13px;
-  display: inline-block;
-}
-
-/* Experience */
-.experience {
-  color: #64748b;
-}
-
-/* Salary */
-.salary {
-  color: #2f9e44;
-  font-weight: 700;
-}
-
-/* Rating */
-.rating {
-  color: #1c7ed6;
-  font-weight: 700;
-}
-
-/* ---------- Footer ---------- */
-.detail-footer {
+/* Skeleton Loading */
+.skeleton-detail {
   display: flex;
-  justify-content: space-between;
-  padding: 22px 32px;
-  border-top: 1px solid #dce7f1;
-  background-color: #fafcfd;
+  flex-direction: column;
+  gap: 24px;
 }
 
-/* ---------- Buttons ---------- */
-.btn-secondary,
-.btn-primary {
-  padding: 10px 22px;
-  font-size: 14px;
-  font-weight: 600;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
+.skeleton-header {
+  height: 180px;
+  border-radius: 20px;
+  background: linear-gradient(90deg, #e5e5e5 25%, #f0f0f0 50%, #e5e5e5 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.8s infinite linear;
 }
 
-.btn-secondary {
-  background-color: #e9eff2;
-  color: #334e68;
+.skeleton-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, #e5e5e5 25%, #f0f0f0 50%, #e5e5e5 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.8s infinite linear;
+  align-self: flex-start;
+  margin-left: 32px;
+  margin-top: -60px;
+}
 
-  &:hover {
-    background-color: #dde5ec;
+.skeleton-title {
+  height: 36px;
+  width: 60%;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #e5e5e5 25%, #f0f0f0 50%, #e5e5e5 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.8s infinite linear;
+  margin-left: 32px;
+}
+
+.skeleton-id {
+  height: 20px;
+  width: 40%;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #e5e5e5 25%, #f0f0f0 50%, #e5e5e5 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.8s infinite linear;
+  margin-left: 32px;
+  margin-top: 8px;
+}
+
+.skeleton-edit-btn {
+  align-self: flex-end;
+  width: 120px;
+  height: 48px;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #e5e5e5 25%, #f0f0f0 50%, #e5e5e5 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.8s infinite linear;
+  margin-right: 32px;
+}
+
+.skeleton-details {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.skeleton-row {
+  display: flex;
+  gap: 20px;
+
+  &::before {
+    content: '';
+    flex: 0 0 180px;
+    height: 24px;
+    border-radius: 8px;
+    background: linear-gradient(90deg, #e5e5e5 25%, #f0f0f0 50%, #e5e5e5 75%);
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.8s infinite linear;
+  }
+
+  &::after {
+    content: '';
+    flex: 1;
+    height: 24px;
+    border-radius: 8px;
+    background: linear-gradient(90deg, #e5e5e5 25%, #f0f0f0 50%, #e5e5e5 75%);
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.8s infinite linear;
+  }
+
+  &.rating::after {
+    width: 140px;
+    height: 32px;
+    border-radius: 20px;
   }
 }
 
-.btn-primary {
-  background: linear-gradient(135deg, #2fb8ac 0%, #0b7285 100%);
-  color: #ffffff;
-  box-shadow: 0 4px 12px rgba(11, 114, 133, 0.25);
+@keyframes skeleton-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
 
-  &:hover {
-    box-shadow: 0 6px 16px rgba(11, 114, 133, 0.35);
+/* Alerts */
+.alert {
+  padding: 18px 24px;
+  border-radius: 16px;
+  font-size: 15.5px;
+  margin-bottom: 32px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+}
+
+.alert-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  stroke-width: 2;
+}
+
+.alert-error {
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+/* Actual Employee Card */
+.employee-card {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  border: 1px solid #f0f0f0;
+}
+
+.employee-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, #fca311 0%, #e68a00 100%);
+  color: #14213d;
+  position: relative;
+
+  .employee-avatar {
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    text-transform: uppercase;
+    color: #fca311;
+    border: 4px solid white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .employee-title {
+    flex: 1;
+
+    h2 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.9rem;
+      font-weight: 700;
+    }
+
+    .employee-id {
+      margin: 0;
+      font-size: 1rem;
+      opacity: 0.9;
+      font-weight: 500;
+    }
+  }
+
+  .edit-button {
+    padding: 0.75rem 1.8rem;
+    background: white;
+    color: #fca311;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+      background: #fffbf0;
+    }
   }
 }
 
-/* ---------- Responsive ---------- */
-@media (max-width: 600px) {
-  .detail-body {
-    padding: 20px;
-  }
+.employee-details {
+  padding: 2.5rem;
 
   .detail-row {
-    grid-template-columns: 28px 1fr;
-    row-gap: 6px;
+    display: flex;
+    padding: 1.2rem 0;
+    border-bottom: 1px solid #f0f0f0;
 
-    .label,
-    .value {
-      grid-column: 2;
+    &:last-child {
+      border-bottom: none;
+    }
+
+    .detail-label {
+      flex: 0 0 200px;
+      font-weight: 600;
+      color: #555;
+      font-size: 1rem;
+    }
+
+    .detail-value {
+      flex: 1;
+      color: #14213d;
+      font-size: 1rem;
+      font-weight: 500;
+
+      &.rating {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+
+        .stars {
+          display: flex;
+          gap: 0.4rem;
+          font-size: 1.5rem;
+
+          span {
+            color: #ddd;
+            transition: color 0.3s ease;
+
+            &.filled {
+              color: #ffa500;
+            }
+          }
+        }
+
+        .rating-number {
+          color: #666;
+          font-size: 0.95rem;
+          font-weight: 500;
+        }
+      }
     }
   }
+}
 
-  .detail-footer {
+/* Responsive */
+@media (max-width: 768px) {
+  .detail-container {
+    margin: 40px 20px;
+    padding: 1.5rem;
+  }
+
+  .header {
     flex-direction: column;
-    gap: 12px;
+    align-items: stretch;
+    gap: 1.5rem;
 
-    button {
+    .back-button {
       width: 100%;
+      justify-content: center;
     }
+
+    h1 { font-size: 1.8rem; }
+  }
+
+  .employee-card {
+    .employee-header {
+      flex-direction: column;
+      text-align: center;
+      padding: 2rem 1.5rem;
+
+      .employee-avatar {
+        width: 70px;
+        height: 70px;
+        font-size: 1.9rem;
+      }
+
+      .edit-button {
+        width: 100%;
+        margin-top: 1rem;
+      }
+    }
+
+    .employee-details {
+      padding: 2rem 1.5rem;
+
+      .detail-row {
+        flex-direction: column;
+        gap: 0.5rem;
+
+        .detail-label { flex: none; }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .detail-container {
+    margin: 20px 12px;
+    padding: 1rem;
+  }
+
+  h1 { font-size: 1.6rem; }
+
+  .employee-header {
+    padding: 1.5rem;
   }
 }
