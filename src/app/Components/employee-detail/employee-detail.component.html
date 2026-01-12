@@ -1,0 +1,103 @@
+<div class="detail-container">
+  <!-- Header -->
+  <div class="header">
+    <button class="back-button" (click)="goBackToList()">
+      <svg
+        class="back-icon"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M15 19l-7-7 7-7"
+        />
+      </svg>
+      Back to Employee List
+    </button>
+    <h1>Employee Details</h1>
+  </div>
+
+  <!-- Success / Error Alerts -->
+  <div *ngIf="errorMessage && !loading" class="alert alert-error">
+    <svg
+      class="alert-icon"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+      />
+    </svg>
+    <span>{{ errorMessage }}</span>
+  </div>
+
+  <!-- Skeleton Loading -->
+  <div *ngIf="loading" class="skeleton-detail">
+    <div class="skeleton-header"></div>
+    <div class="skeleton-avatar"></div>
+    <div class="skeleton-title"></div>
+    <div class="skeleton-id"></div>
+    <div class="skeleton-edit-btn"></div>
+    <div class="skeleton-details">
+      <div class="skeleton-row"></div>
+      <div class="skeleton-row"></div>
+      <div class="skeleton-row"></div>
+      <div class="skeleton-row rating"></div>
+    </div>
+  </div>
+
+  <!-- Actual Employee Card -->
+  <div *ngIf="employee && !loading" class="employee-card">
+    <div class="employee-header">
+      <div class="employee-avatar">
+        {{ employee.empName.charAt(0) }}
+      </div>
+      <div class="employee-title">
+        <h2>{{ employee.empName }}</h2>
+        <p class="employee-id">Employee ID: {{ employee.empId }}</p>
+      </div>
+      <button class="edit-button" (click)="goToEdit()">Edit</button>
+    </div>
+
+    <div class="employee-details">
+      <div class="detail-row">
+        <span class="detail-label">Designation:</span>
+        <span class="detail-value">{{ employee.empDesignation }}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Salary:</span>
+        <span class="detail-value">{{
+          employee.empSalary| currency : "INR" : "symbol-narrow" : "1.0-0"
+        }}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Experience:</span>
+        <span class="detail-value"
+          >{{ employee.empExperienceYears }} years</span
+        >
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Performance Rating:</span>
+        <span class="detail-value rating">
+          <span class="stars">
+            <span
+              *ngFor="let star of [1, 2, 3, 4, 5]"
+              [class.filled]="star <= employee.empPerformanceRating"
+              >★</span
+            >
+          </span>
+          <span class="rating-number"
+            >({{ employee.empPerformanceRating }}/5)</span
+          >
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

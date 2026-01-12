@@ -1,55 +1,250 @@
 <div class="container">
-
-  <h2>Rewardly Employees</h2>
-<div class="header-row"> 
-  <button  routerLink="/employees/new" class="btn add"> + Add Employee</button>  
-</div>
-
-
-  <!-- Loading -->
-  <div *ngIf="loading" class="loading">
-    Loading employees...
+  <!-- ===== Title ===== -->
+  <div class="page-header animated-title">
+    <h2>Rewardly Employees</h2>
   </div>
 
-  <!-- Error -->
-  <div *ngIf="errorMessage" class="error">
-    {{ errorMessage }}
+  <!-- ===== Toolbar ===== -->
+  <div class="toolbar single-line">
+    <input
+      type="text"
+      class="search-input"
+      placeholder="Search by Employee ID / Name / Designation"
+      [formControl]="searchControl"
+    />
+
+    <select [formControl]="designationControl">
+      <option value="">All Designations</option>
+      <option value="Software Engineer">Software Engineer</option>
+      <option value="Senior Software Engineer">Senior Software Engineer</option>
+      <option value="Technical Lead">Technical Lead</option>
+      <option value="Project Manager">Project Manager</option>
+      <option value="System Analyst">System Analyst</option>
+      <option value="QA Engineer">QA Engineer</option>
+      <option value="DevOps Engineer">DevOps Engineer</option>
+      <option value="UI/UX Designer">UI/UX Designer</option>
+      <option value="Data Scientist">Data Scientist</option>
+    </select>
+
+    <select [formControl]="ratingControl">
+      <option value="">All Ratings</option>
+      <option *ngFor="let r of [1, 2, 3, 4, 5]" [value]="r">{{ r }}</option>
+    </select>
+
+    <button routerLink="/employees/new" class="btn-primary">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="icon-plus"
+      >
+        <line x1="12" y1="5" x2="12" y2="19"></line>
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+      </svg>
+      Add Employee
+    </button>
   </div>
 
-  <!-- Table -->
-  <table *ngIf="!loading && employees.length > 0">
-    <thead>
-      <tr>
-        <th>Emp ID</th>
-        <th>Name</th>
-        <th>Designation</th>
-        <th>ExperienceYears</th>
-        <th>Salary</th>
-        <th>PerformanceRating</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <tr *ngFor="let emp of employees">
-        <td>{{ emp.empId }}</td>
-        <td>{{ emp.empName }}</td>
-        <td>{{ emp.empDesignation }}</td>
-        <td>{{emp.empExperienceYears}}</td>
-        <td>{{emp.empSalary}}</td>
-        <td>{{emp.empPerformanceRating}}</td>
-        <td>
-          <button class="btn view">View</button>
-          <button class="btn edit">Edit</button>
-          <button class="btn delete" (click)="deleteEmployee(emp.empId!)">Delete</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
-  <!-- No Records -->
-  <div *ngIf="!loading && employees.length === 0">
-    No employees found.
+  <!-- ===== Modern Skeleton Loading State ===== -->
+  <div *ngIf="loading" class="skeleton-loading">
+    <div class="skeleton-header"></div>
+    <div class="skeleton-toolbar"></div>
+    <div class="skeleton-table">
+      <div class="skeleton-row" *ngFor="let i of [1, 2, 3, 4, 5]">
+        <div class="skeleton-cell short"></div>
+        <div class="skeleton-cell medium"></div>
+        <div class="skeleton-cell long"></div>
+        <div class="skeleton-cell medium"></div>
+        <div class="skeleton-cell short"></div>
+        <div class="skeleton-cell rating"></div>
+        <div class="skeleton-cell actions"></div>
+      </div>
+    </div>
   </div>
 
+  <!-- ===== Error State ===== -->
+  <div *ngIf="errorMessage && !loading" class="alert-error">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="icon-alert"
+    >
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="12" y1="8" x2="12" y2="12"></line>
+      <line x1="12" y1="16" x2="12.01" y2="16"></line>
+    </svg>
+    <strong>Error:</strong> {{ errorMessage }}
+  </div>
+
+  <!-- ===== Employees Table ===== -->
+  <div class="table-container" *ngIf="!loading && employees.length > 0">
+    <table class="employees-table">
+      <thead>
+        <tr>
+          <th (click)="sortBy('empId')" class="add-arrow">Emp ID</th>
+          <th (click)="sortBy('empName')" class="add-arrow">Name</th>
+          <th (click)="sortBy('empDesignation')" class="add-arrow">
+            Designation
+          </th>
+          <th (click)="sortBy('empSalary')" class="add-arrow">Salary</th>
+          <th (click)="sortBy('empExperienceYears')" class="add-arrow">
+            Experience
+          </th>
+          <th (click)="sortBy('empPerformanceRating')" class="add-arrow">
+            Rating
+          </th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let emp of employees">
+          <td class="id">{{ emp.empId }}</td>
+          <td class="name">{{ emp.empName }}</td>
+          <td>{{ emp.empDesignation }}</td>
+          <td class="salary">
+            {{ emp.empSalary | currency : "INR" : "symbol-narrow" : "1.0-0" }}
+          </td>
+          <td>{{ emp.empExperienceYears }} yrs</td>
+
+          <!-- Dynamic Star Rating Badge -->
+          <td class="rating-cell">
+            <span class="detail-value rating">
+              <span class="stars">
+                <span
+                  *ngFor="let star of [1, 2, 3, 4, 5]"
+                  [class.filled]="star <= emp.empPerformanceRating"
+                  >★</span
+                >
+              </span>
+              <span class="rating-number">
+                ({{ emp.empPerformanceRating }}/5)
+              </span>
+            </span>
+          </td>
+
+          <td class="actions">
+            <!-- View Icon -->
+            <button
+              class="action-btn view"
+              title="View"
+              [routerLink]="['/employees', emp.empId]"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="icon-view"
+              >
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+            </button>
+
+            <!-- Edit Icon -->
+            <button
+              class="action-btn edit"
+              title="Edit"
+              [routerLink]="['/employees', emp.empId, 'edit']"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="icon-edit"
+              >
+                <path
+                  d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                ></path>
+                <path
+                  d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+                ></path>
+              </svg>
+            </button>
+
+            <!-- Delete Icon -->
+            <button
+              class="action-btn delete"
+              title="Delete"
+              (click)="deleteEmployee(emp.empId!)"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="icon-delete"
+              >
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path
+                  d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                ></path>
+                <line x1="10" y1="11" x2="10" y2="17"></line>
+                <line x1="14" y1="11" x2="14" y2="17"></line>
+              </svg>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ===== Empty State ===== -->
+  <div *ngIf="!loading && employees.length === 0" class="empty-state">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="icon-empty"
+    >
+      <rect x="3" y="4" width="18" height="16" rx="2"></rect>
+      <line x1="8" y1="10" x2="16" y2="10"></line>
+      <line x1="8" y1="14" x2="13" y2="14"></line>
+    </svg>
+    <h3>No employees found</h3>
+    <p>Try adjusting your search or add a new employee.</p>
+  </div>
+
+  <!-- Pagination Controls -->
+  <div *ngIf="totalPages > 1" class="pagination-controls">
+    <button
+      class="pagination-btn"
+      (click)="previousPage()"
+      [disabled]="currentPage === 1"
+    >
+      Previous
+    </button>
+    <span class="page-info"> Page {{ currentPage }} of {{ totalPages }} </span>
+    <button
+      class="pagination-btn"
+      (click)="nextPage()"
+      [disabled]="currentPage === totalPages"
+    >
+      Next
+    </button>
+  </div>
 </div>
